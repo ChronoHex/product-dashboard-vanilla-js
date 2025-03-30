@@ -22,6 +22,37 @@ async function fetchProductsAsync() {
       const products = await response.json(); // converting data to a response or effect
       displayProducts(products); // calling function
     } catch (error) {
-      handleError(error); // catching error of products
-    }
+          handleError(error); // catching error of products
+        }
+}
+
+// task 4 
+function displayProducts(products) {
+    const container = document.getElementById('product-container');
+    container.innerHTML = ''; // Clear previous content
+  
+    products.slice(0, 5).forEach((product) => {
+      const { name, price, image } = product.fields; // product fields
+  
+      const productCards = document.createElement('div'); // Creating the product Cards
+      productCards.setAttribute('class','product-card');
+  
+      const productName = document.createElement('h2'); // creating product name
+      productName.setAttribute('class', 'product-name');
+      productName.textContent = product.fields.name;
+  
+      const productPrice = document.createElement('p'); // creating product price
+      productPrice.setAttribute('class', 'product-price' );
+      productPrice.textContent = `$${(price/100).toFixed(2)}`;
+  
+      const productImage = document.createElement('img'); // creating product image
+      productImage.src = image[0].url;
+      productImage.alt = name;
+  
+      productCards.appendChild(productName); // appending product name
+      productCards.appendChild(productPrice); // appending product price
+      productCards.appendChild(productImage); // // appending product image
+
+      container.appendChild(productCards); // appending product cards to container
+    });
   }
